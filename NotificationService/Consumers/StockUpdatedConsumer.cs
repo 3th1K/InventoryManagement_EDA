@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using NotificationService.Storage;
 using Shared.Events;
 
 namespace NotificationService.Consumers;
@@ -16,7 +17,10 @@ public class StockUpdatedConsumer : IConsumer<StockUpdated>
     {
         var stockUpdate = context.Message;
 
-        _logger.LogInformation($"Stock updated for Product {stockUpdate.ProductId}: {stockUpdate.Quantity} units.");
+        var logEntry = $"Stock updated for Product {stockUpdate.ProductId}: {stockUpdate.Quantity} units.";
+
+        _logger.LogInformation(logEntry);
+        EventLogStorage.AddEventLog(logEntry);
 
         return Task.CompletedTask;
     }

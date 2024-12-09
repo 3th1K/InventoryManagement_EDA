@@ -14,6 +14,7 @@ public class ProductAddedConsumer : IConsumer<ProductAdded>
 
     public async Task Consume(ConsumeContext<ProductAdded> context)
     {
+        //throw new NotImplementedException();
         var product = context.Message;
 
         _logger.LogInformation($"Received ProductAdded event: {product.ProductId} - {product.Name}");
